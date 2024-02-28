@@ -1,8 +1,5 @@
 import { useState } from "react";
 import useAuthUser from "../../hooks/useAuth";
-// import { Navigate, useNavigate } from "react-router-dom";
-// import loginStateContext from "../contexts/loginStateContext";
-// import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 

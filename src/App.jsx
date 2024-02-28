@@ -1,16 +1,11 @@
 import "./App.css";
 import AllDataContext from "./contexts/Alldata";
 import Mainsite from "./components/MainSite";
-import Login from "./components/Login";
-// import Signup from "./components/SignUp";
+import Login from "./components/auth/Login";
 import { Routes, Route } from "react-router-dom";
-// import axios from "axios";
-// import { useEffect } from "react";
 import Protectedroute from "./routes/ProtectedRoutes";
-// import ProductDetail from "./components/ProductDetail";
-// import DisplayProduct from "./components/DisplayProduct";
+import ProductDetail from "./components/ProductDetail";
 import LoginState from "./contexts/LoginState";
-
 
 function App() {
   //   const rishav = async () => {
@@ -34,17 +29,17 @@ function App() {
   return (
     <>
       <LoginState>
-      <AllDataContext>
-        <Routes>
-          <Route element={<Protectedroute />}>
-            <Route path="/" element={<Mainsite />} />
-          </Route>
+        <AllDataContext>
+          <Routes>
+            <Route element={<Protectedroute />}>
+              <Route path="/" element={<Mainsite />} />
+              <Route path="/productDetail" element={<ProductDetail />} />
+            </Route>
+            <Route path="/login" element={<Login />} />
 
-          <Route path="/login" element={<Login />} />
-          
-          {/* <Route path="/productDetail" element={<ProductDetail />} /> */}
-        </Routes>
-      </AllDataContext>
+            {/* <Route path="/productDetail" element={<ProductDetail />} /> */}
+          </Routes>
+        </AllDataContext>
       </LoginState>
     </>
   );

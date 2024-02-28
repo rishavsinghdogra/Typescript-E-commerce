@@ -1,23 +1,21 @@
 import { useContext, useState } from "react";
 import mycontext from "../contexts/Mycontex";
 import axios from "axios";
-
+import useAuthUser from "../hooks/useAuth";
 export const Navbar = () => {
   const obj = useContext(mycontext);
   const { products, setProducts } = obj;
 
   const [search, setSearch] = useState("");
+  const { logout } = useAuthUser();
 
-  // console.log(products);
   const handleSearch = (event) => {
-    // console.log(search);
     if (event.key === "Enter") {
       const searchedProduct = products.filter((value) =>
         value.title.toLowerCase().includes(search.toLowerCase())
       );
 
       setProducts(searchedProduct);
-      // console.log(searchedProduct);
     }
   };
 
@@ -51,13 +49,15 @@ export const Navbar = () => {
     <div className="bg-gradient-to-r from-pink-300 to-yellow-400 shadow-md fixed top-0 w-full z-50">
       <div className="flex items-center h-16">
         <p className="text-lg font-bold ml-4">Fake Store</p>
-        <div className="ml-auto mr-auto">
-          <input
-            onKeyUp={handleSearch}
-            onChange={(e) => setSearch(e.target.value)}
-            type="text"
-            className="searchbar mr-[30px]"
-          />
+
+        <input
+          onKeyUp={handleSearch}
+          onChange={(e) => setSearch(e.target.value)}
+          type="text"
+          className="w-64 h-10 px-4 py-2 rounded border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ml-[20px] "
+          placeholder="Search..."
+        />
+        <div className="m-auto">
           <button
             onClick={() => handleClick("men's clothing")}
             className="font-bold text-gray-800 hover:text-yellow-600 ml-4  transition duration-300 ease-in-out"
@@ -83,6 +83,15 @@ export const Navbar = () => {
             Women's Clothing
           </button>
         </div>
+        <button
+          onClick={() => {
+            logout();
+          }}
+          className="relative mr-auto inline-block px-4 py-2 text-white font-bold transition duration-300 ease-in-out bg-gradient-to-r from-orange-700 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 rounded-md shadow-lg  border-2 "
+        >
+          Logout
+        </button>
+
         <img
           onClick={handleClick}
           src="src\assets\cart.svg"

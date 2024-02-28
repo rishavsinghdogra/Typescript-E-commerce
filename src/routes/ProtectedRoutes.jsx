@@ -5,7 +5,7 @@ import loginStateContext from "../contexts/loginStateContext";
 const Protectedroute = () => {
 
     const {isAuthentic} = useContext(loginStateContext);
-    console.log("protected (1)",isAuthentic);
+    // if(localStorage.length) setAuthentic(true);
     return (
         
         <>
