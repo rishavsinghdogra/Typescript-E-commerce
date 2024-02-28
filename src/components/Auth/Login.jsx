@@ -1,18 +1,18 @@
-import {useState } from "react";
-import useAuthUser from "../hooks/useAuth";
-import { Navigate } from "react-router-dom";
-import loginStateContext from "../contexts/loginStateContext";
-import { useContext } from "react";
+import { useState } from "react";
+import useAuthUser from "../../hooks/useAuth";
+// import { Navigate, useNavigate } from "react-router-dom";
+// import loginStateContext from "../contexts/loginStateContext";
+// import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
-
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const URL ="https://fakestoreapi.com/auth/login";
+  const URL = "https://fakestoreapi.com/auth/login";
 
-  const {login, isAuthentic} = useAuthUser();
-  console.log("login", isAuthentic);
- 
+  const {login} = useAuthUser();
+  const navigate = useNavigate();
 
   const handleName = (event) => {
     const newName = event.target.value;
@@ -25,7 +25,6 @@ const Login = () => {
   };
 
   const handleLogin = async (e) => {
-    
     e.preventDefault();
 
     const credentials = {
@@ -33,22 +32,22 @@ const Login = () => {
       password: password,
     };
 
-    await login(URL,credentials);
-
-    console.log("login page  isAuthentic", isAuthentic);
-
-    if (isAuthentic) {
-      <Navigate to="/" />;
-     
-    } else {
-      <Navigate to="/login" />;
+    try {
+      const response = await axios.post(URL, credentials);
+      if (response.status === 200) {
+        const token = response.data.token;
+        login(token);
+        navigate("/");
+      } else {
+        throw new Error("Login failed");
+      }
+    } catch (error) {
+      console.error("Error occurred during login:", error);
+      throw error;
     }
-
-  }
-  
+  };
 
   return (
-
     <div className="main flex justify-center items-center bg-gradient-to-bl from-[#31B7C2] to-[#7BC393] h-screen w-screen">
       <form className="form flex justify-center items-center absolute h-[50%] w-[50%] bg-slate-100 rounded-[20px] drop-shadow-md">
         <h3 className=" absolute font-bold top-[8%] text-[30px] left-[42%] ">
@@ -85,7 +84,6 @@ const Login = () => {
 
         <button
           onClick={(e) => {
-            
             handleLogin(e);
           }}
           className="absolute top-[80%] left-[18%] w-[25%] h-[10%] bg-green-800 text-white rounded-lg hover:bg-green-500"
@@ -98,11 +96,7 @@ const Login = () => {
         </button>
       </form>
     </div>
-
   );
 };
 
 export default Login;
-
-
-
