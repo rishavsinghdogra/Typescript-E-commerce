@@ -91,9 +91,7 @@ export const Navbar = () => {
         >
           Logout
         </button>
-
         <img
-          onClick={handleClick}
           src="src\assets\cart.svg"
           alt="Cart"
           className="h-8 ml-auto mr-4 "
