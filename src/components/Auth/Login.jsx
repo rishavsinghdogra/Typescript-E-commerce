@@ -1,30 +1,32 @@
-import { useState } from "react";
 import useAuthUser from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useFormik } from "formik";
+import { basicSchema } from "../../schemas";
+
 
 const Login = () => {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+
   const URL = "https://fakestoreapi.com/auth/login";
 
   const { login } = useAuthUser();
   const navigate = useNavigate();
 
-  const handleName = (event) => {
-    setName(event.target.value);
-  };
+  const { values, handleChange, errors } = useFormik({
+    initialValues : {
+      name: "",
+      password: ""
+    },
+    validationSchema: basicSchema
+  })
 
-  const handlePassword = (event) => {
-    setPassword(event.target.value);
-  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     const credentials = {
-      username: name,
-      password: password,
+      username: values.name,
+      password: values.password,
     };
 
     try {
@@ -51,8 +53,9 @@ const Login = () => {
           <input
             type="text"
             placeholder="Name"
-            value={name}
-            onChange={handleName}
+            id = "name"
+            value={values.name}
+            onChange={handleChange}
             className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -61,10 +64,14 @@ const Login = () => {
           <input
             type="password"
             placeholder="Password"
-            value={password}
-            onChange={handlePassword}
-            className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+            value={values.password}
+            onChange={handleChange}
+            id="password"
+            className={`w-full px-4 py-2 rounded-md border ${
+              errors.password ? "border-red-500" : "focus:border-blue-500"
+            } focus:outline-none `}
           />
+          {errors.password && <p className="text-red-500">{errors.password}</p>}
         </div>
         
         <button

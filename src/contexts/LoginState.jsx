@@ -11,8 +11,6 @@ const LoginState = (props) => {
     }
   });
 
-  console.log(isAuthentic);
-
   return (
     <loginStateContext.Provider value={{ isAuthentic, setAuthentic }}>
       {props.children}

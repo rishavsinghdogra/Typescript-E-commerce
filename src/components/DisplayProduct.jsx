@@ -40,7 +40,7 @@ const DisplayProduct = () => {
             src={value.image}
             alt={value.title}
           />
-          <div className="group text-center  truncate w-[150px] hover:overflow-visible hover:text-wrap">
+          <div className="group text-center  truncate w-[150px] hover:overflow-visible hover:text-wrap mb-4">
             <Link
               to={`/productDetail/${value.id}`}
               className="text-center text-white font-semibold mb-2"
