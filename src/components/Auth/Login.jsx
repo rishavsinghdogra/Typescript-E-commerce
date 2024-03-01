@@ -8,17 +8,15 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const URL = "https://fakestoreapi.com/auth/login";
 
-  const {login} = useAuthUser();
+  const { login } = useAuthUser();
   const navigate = useNavigate();
 
   const handleName = (event) => {
-    const newName = event.target.value;
-    setName(newName);
+    setName(event.target.value);
   };
 
   const handlePassword = (event) => {
-    const newPassword = event.target.value;
-    setPassword(newPassword);
+    setPassword(event.target.value);
   };
 
   const handleLogin = async (e) => {
@@ -45,52 +43,40 @@ const Login = () => {
   };
 
   return (
-    <div className="main flex justify-center items-center bg-gradient-to-bl from-[#31B7C2] to-[#7BC393] h-screen w-screen">
-      <form className="form flex justify-center items-center absolute h-[50%] w-[50%] bg-slate-100 rounded-[20px] drop-shadow-md">
-        <h3 className=" absolute font-bold top-[8%] text-[30px] left-[42%] ">
-          Login
-        </h3>
-
-        {/* name input div  */}
-        <div className="name absolute h-[50px] w-[70%]  bg-slate-300 rounded-sm top-[30%]">
+    <div className="flex justify-center items-center h-screen bg-gradient-to-bl from-[#31B7C2] to-[#7BC393]">
+      <form className="bg-gray-100 p-8 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-4">Login</h2>
+        
+        <div className="mb-4">
           <input
             type="text"
             placeholder="Name"
-            className="relative bg-slate-300 mt-3 left-[30px] border-blue-500 w-[50%]"
-            onInput={handleName}
-          />
-          <img
-            src="src\assets\user.svg"
-            className=" relative h-[30px] bottom-[25px] "
+            value={name}
+            onChange={handleName}
+            className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
           />
         </div>
-
-        {/* password input div */}
-        <div className="name absolute h-[50px] w-[70%] bg-slate-300 rounded-sm top-[50%]">
+        
+        <div className="mb-6">
           <input
             type="password"
             placeholder="Password"
-            className="relative bg-slate-300 mt-3 left-[30px] border-blue-500 border-0 w-[50%]"
-            onInput={handlePassword}
-          />
-          <img
-            src="src\assets\password.svg"
-            className=" relative h-[25px] bottom-[23px] "
+            value={password}
+            onChange={handlePassword}
+            className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
           />
         </div>
-
+        
         <button
-          onClick={(e) => {
-            handleLogin(e);
-          }}
-          className="absolute top-[80%] left-[18%] w-[25%] h-[10%] bg-green-800 text-white rounded-lg hover:bg-green-500"
+          onClick={handleLogin}
+          className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700"
         >
           Login
         </button>
-
-        <button className="absolute top-[80%] left-[55%]  w-[25%] h-[10%] bg-green-800 text-white rounded-lg">
-          Sign Up
-        </button>
+        
+        <p className="mt-4 text-center text-gray-600">
+          Don't have an account? <a href="/signup" className="text-blue-500">Sign up</a>
+        </p>
       </form>
     </div>
   );

@@ -1,19 +1,25 @@
 import mycontext from "../contexts/Mycontex";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
+import Navbar from "./Navbar.jsx";
+
 
 const ProductDetail = () => {
   const { products } = useContext(mycontext);
   const { id } = useParams();
   const product = products[id - 1];
 
+
+
   return (
+   <>
+    <Navbar />
     <div className="container mx-auto mt-8 flex flex-col">
       <div className="flex justify-center">
         <img
           src={product.image}
           alt={product.title}
-          className="max-w-md rounded-lg shadow-xl" 
+          className="max-w-md rounded-lg" 
         />
       </div>
       <div className="ml-8">
@@ -34,6 +40,7 @@ const ProductDetail = () => {
         </button>
       </div>
     </div>
+    </>
   );
 };
 

@@ -32,17 +32,22 @@ const DisplayProduct = () => {
           className="product hover:scale-125 flex flex-col items-center bg-gradient-to-br from-blue-200 to-blue-400 shadow-lg rounded-md w-[150px] h-[200px] justify-center mr-4 mb-4 sm:mr-0 sm:mb-0 sm:ml-4 sm:mt-4 hover:duration-300"
           onClick={(e) => {
             e.stopPropagation();
-            handleClick(value)}}
+            handleClick(value);
+          }}
         >
           <img
             className="w-[100px] h-[100px] object-cover mb-2 rounded-full"
             src={value.image}
             alt={value.title}
           />
-          <Link to = {`/productDetail/${value.id}`} className="text-center text-white font-semibold mb-2">
-            {value.title}
-            {console.log(value.id)}
-          </Link>
+          <div className="group text-center  truncate w-[150px] hover:overflow-visible hover:text-wrap">
+            <Link
+              to={`/productDetail/${value.id}`}
+              className="text-center text-white font-semibold mb-2"
+            >
+              {value.title}
+            </Link>
+          </div>
           <button className="bg-[#F9A03F] text-white py-1 px-4 rounded-full shadow-md hover:bg-yellow-500 transition-colors duration-300">
             Add to cart
           </button>
