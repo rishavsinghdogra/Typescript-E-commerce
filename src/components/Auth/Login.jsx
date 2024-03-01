@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas";
+import { toast } from 'react-toastify';
 
 
 const Login = () => {
@@ -36,9 +37,11 @@ const Login = () => {
         login(token);
         navigate("/");
       } else {
+        
         throw new Error("Login failed");
       }
     } catch (error) {
+      toast("Login failed!");
       console.error("Error occurred during login:", error);
       throw error;
     }
@@ -73,7 +76,7 @@ const Login = () => {
           />
           {errors.password && <p className="text-red-500">{errors.password}</p>}
         </div>
-        
+         
         <button
           onClick={handleLogin}
           className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700"

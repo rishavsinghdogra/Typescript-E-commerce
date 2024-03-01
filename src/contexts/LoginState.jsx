@@ -4,7 +4,6 @@ import loginStateContext from "./loginStateContext";
 const LoginState = (props) => {
   const [isAuthentic, setAuthentic] = useState(() => {
     if (localStorage.length) {
-      console.log("if is true");
       return true;
     } else {
       return false;

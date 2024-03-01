@@ -40,12 +40,12 @@ const DisplayProduct = () => {
             src={value.image}
             alt={value.title}
           />
-          <div className="group text-center  truncate w-[150px] hover:overflow-visible hover:text-wrap mb-4">
+          <div className="group text-center  truncat w-[150px]  mb-4">
             <Link
               to={`/productDetail/${value.id}`}
-              className="text-center text-white font-semibold mb-2"
+              className="text-center text-white font-semibold mb-2 px-2"
             >
-              {value.title}
+                  <p className="title truncate  hover:overflow-visible hover:text-wrap">{value.title}</p>
             </Link>
           </div>
           <button className="bg-[#F9A03F] text-white py-1 px-4 rounded-full shadow-md hover:bg-yellow-500 transition-colors duration-300">
