@@ -1,10 +1,9 @@
-// import axios from "axios";
 import loginStateContext from "../contexts/loginStateContext";
 import { useContext } from "react";
 
 const useAuthUser = () => {
   const { isAuthentic, setAuthentic } = useContext(loginStateContext);
-  
+
   const logout = () => {
     localStorage.removeItem("token");
     setAuthentic(false);

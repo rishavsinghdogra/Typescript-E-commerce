@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "./Navbar.jsx";
 import { toast } from "react-toastify";
+import ProductReview from "./ProductReview.jsx";
 
 const ProductDetail = () => {
   const { products } = useContext(mycontext);
@@ -38,12 +39,13 @@ const ProductDetail = () => {
             </div>
           </div>
           <button
-            onClick={ () => {toast("🦄 Product added to cart!")}}
+            onClick={ () => {toast.success("Product added to cart!")}}
             className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-2 px-4 rounded-lg hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition duration-300"
           >
-            {/* Applied gradient background */}
             Add to Cart
           </button>
+
+          <ProductReview />
         </div>
       </div>
     </>

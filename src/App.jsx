@@ -6,12 +6,12 @@ import { Routes, Route } from "react-router-dom";
 import Protectedroute from "./routes/ProtectedRoutes";
 import ProductDetail from "./components/ProductDetail";
 import LoginState from "./contexts/LoginState";
-
+import { ToastContainer } from "react-toastify";
 
 function App() {
-
   return (
     <>
+      <ToastContainer position="bottom-center" />
       <LoginState>
         <AllDataContext>
           <Routes>

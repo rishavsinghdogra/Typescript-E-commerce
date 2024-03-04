@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import mycontext from "../contexts/Mycontex";
 import axios from "axios";
 import useAuthUser from "../hooks/useAuth";
+
 export const Navbar = () => {
   const obj = useContext(mycontext);
   const { products, setProducts } = obj;
