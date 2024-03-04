@@ -49,7 +49,7 @@ export const Navbar = () => {
   return (
     <div className="bg-gradient-to-r from-pink-300 to-yellow-400 shadow-md fixed top-0 w-full z-50">
       <div className="flex items-center h-16">
-        <p className="text-lg font-bold ml-4">Fake Store</p>
+        <p className="text-lg font-bold ml-4">Rishav Store</p>
 
         <input
           onKeyUp={handleSearch}
