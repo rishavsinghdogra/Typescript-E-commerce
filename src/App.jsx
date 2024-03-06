@@ -7,11 +7,13 @@ import Protectedroute from "./routes/ProtectedRoutes";
 import ProductDetail from "./components/ProductDetail";
 import LoginState from "./contexts/LoginState";
 import { ToastContainer } from "react-toastify";
+import ThemeProvider from "./contexts/ThemeContext";
 
 function App() {
   return (
     <>
       <ToastContainer position="bottom-center" />
+      <ThemeProvider>
       <LoginState>
         <AllDataContext>
           <Routes>
@@ -23,6 +25,7 @@ function App() {
           </Routes>
         </AllDataContext>
       </LoginState>
+      </ThemeProvider>
     </>
   );
 }

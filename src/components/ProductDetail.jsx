@@ -4,21 +4,23 @@ import { useParams } from "react-router-dom";
 import Navbar from "./Navbar.jsx";
 import { toast } from "react-toastify";
 import ProductReview from "./ProductReview.jsx";
+import { ThemeContext } from "../contexts/ThemeContext.jsx";
 
 const ProductDetail = () => {
   const { products } = useContext(mycontext);
   const { id } = useParams();
   const product = products[id - 1];
+  let {nightTheme} = useContext(ThemeContext);
 
   return (
     <>
       <Navbar />
-      <div className="container relative mx-auto mt-8 flex flex-col top-[55px]">
+      <div className={`container relative mx-auto mt-8 flex flex-col top-[55px] ${nightTheme ? "bg-slate-300" : "" } `} >
         <div className="flex justify-center">
           <img
             src={product.image}
             alt={product.title}
-            className="max-w-md rounded-lg"
+            className="max-w-md rounded-lg mt-3"
           />
         </div>
         <div className="ml-8">

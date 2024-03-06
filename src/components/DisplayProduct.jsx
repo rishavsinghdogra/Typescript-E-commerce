@@ -3,9 +3,14 @@ import mycontext from "../contexts/Mycontex";
 import { Link } from "react-router-dom";
 import { apiProducts } from "../services/Products.api";
 import useQuery from "../hooks/useQuery";
+import CartButton from "../assets/CartButton";
+import { ThemeContext } from "../contexts/ThemeContext";
 
 const DisplayProduct = () => {
   const { products, setProducts } = useContext(mycontext);
+
+  let { nightTheme } = useContext(ThemeContext);
+  console.log(nightTheme);
 
   const [clickedProducts, setClickedProducts] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -35,12 +40,20 @@ const DisplayProduct = () => {
   };
 
   return (
-    <div className="relative top-[75px] text-xs flex flex-wrap justify-center sm:justify-start">
+    <div
+      className={`relative top-[75px] text-xs flex flex-wrap justify-center sm:justify-start ${
+        nightTheme ? "night-theme" : ""
+      }`}
+    >
       {/* Products */}
       {products.map((value, index) => (
         <div
           key={index}
-          className="product hover:scale-125 flex flex-col items-center bg-gradient-to-br from-blue-200 to-blue-400 shadow-lg rounded-md w-[150px] h-[200px] justify-center mr-4 mb-4 sm:mr-0 sm:mb-0 sm:ml-4 sm:mt-4 hover:duration-300"
+          className={`product hover:scale-125 flex flex-col items-center shadow-lg rounded-md w-[150px] h-[200px] justify-center mr-4 mb-4 sm:mr-0 sm:mb-0 sm:ml-4 sm:mt-4 hover:duration-300 bg-gradient-to-br ${
+            nightTheme
+              ? "from-blue-600 to-blue-800"
+              : "from-blue-200 to-blue-400"
+          }`}
           onClick={(e) => {
             e.stopPropagation();
             handleClick(value);
@@ -57,24 +70,32 @@ const DisplayProduct = () => {
               className="text-center text-white font-semibold mb-2 "
             >
               <p className="title truncate  hover:overflow-visible hover:text-wrap px-2">
-                {value.title}
-              </p>
+                 {value.title}
+               </p>
             </Link>
           </div>
-          <button className="relative bg-[#F9A03F] text-white py-1 px-4 rounded-full shadow-md hover:bg-yellow-500 transition-colors duration-300 bottom-4 mt-3">
-            Add to cart
-          </button>
+          <CartButton />
         </div>
       ))}
 
       {/* Sidebar */}
       <div
-        className={`sidebar fixed bg-[rgba(242, 209, 201, 0.1)] backdrop-blur-lg h-screen w-[250px] z-20 right-0 top-[65px] overflow-y-auto transform transition-transform ${
-          sidebarOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`sidebar fixed h-screen w-[250px] z-20 right-0 top-[65px] overflow-y-auto transform transition-transform ${
+          sidebarOpen ? "translate-x-0 backdrop-blur-lg" : "translate-x-full"
+        } `}
       >
-        <div className="flex justify-between items-center bg-[#E69A8D] p-4">
-          <h2 className="text-white font-semibold">Shopping Cart</h2>
+        <div
+          className={`flex justify-between items-center p-4 ${
+            nightTheme ? "bg-gray-800" : "bg-[#E69A8D] text-white"
+          }`}
+        >
+          <h2
+            className={`font-semibold ${
+              nightTheme ? "text-gray-200" : "text-white"
+            } `}
+          >
+            Cart
+          </h2>
           <button onClick={closeSidebar} className="text-white">
             Close
           </button>
@@ -83,7 +104,9 @@ const DisplayProduct = () => {
         {clickedProducts.map((product, index) => (
           <div
             key={index}
-            className="bg-fuchsia-700 flex items-center py-2 px-4 rounded-lg shadow-md mb-4 hover:bg-fuchsia-800 transition-colors duration-300"
+            className={`flex items-center py-2 px-4 rounded-lg shadow-md mb-4 hover:bg-fuchsia-800 transition-colors duration-300 ${
+              nightTheme ? "bg-gray-700" : "bg-fuchsia-700"
+            }`}
           >
             <img
               className="w-12 h-12 object-cover rounded-full mr-2"
@@ -91,12 +114,22 @@ const DisplayProduct = () => {
               alt={product.title}
             />
             <div>
-              <h2 className="text-white font-semibold">{product.title}</h2>
-              <p className="text-gray-200">{product.price}</p>
+              <h2
+                className={`${
+                  nightTheme ? "text-gray-200" : "text-white"
+                } font-semibold`}
+              >
+                {product.title}
+              </h2>
+              <p
+                className={`${nightTheme ? "text-gray-300" : "text-gray-200"}`}
+              >
+                {product.price}
+              </p>
             </div>
             <button
               onClick={() => handleDelete(index)}
-              className="ml-auto inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
+              className={`ml-auto inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 transition-colors duration-300`}
             >
               Delete
             </button>
