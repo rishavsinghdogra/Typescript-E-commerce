@@ -1,7 +1,8 @@
 import "./App.css";
 import AllDataContext from "./contexts/Alldata";
 import Mainsite from "./components/MainSite";
-import Login from "./components/auth/Login";
+// import Login from "./components/auth/Login";
+import Login from "./components/Auth/Login"
 import { Routes, Route } from "react-router-dom";
 import Protectedroute from "./routes/ProtectedRoutes";
 import ProductDetail from "./components/ProductDetail";
