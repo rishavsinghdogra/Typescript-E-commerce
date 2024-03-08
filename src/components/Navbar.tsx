@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
-import mycontext from "../contexts/Mycontex";
+import mycontext from "../contexts/Mycontex.ts";
 import axios from "axios";
-import useAuthUser from "../hooks/useAuth";
-import { ThemeSwitch } from "../assets/ThemeSwitch";
-import { ThemeContext } from "../contexts/ThemeContext";
+import useAuthUser from "../hooks/useAuth.ts";
+import { ThemeSwitch } from "../assets/ThemeSwitch.ts";
+import { ThemeContext } from "../contexts/ThemeContext.tsx";
 
 export const Navbar = () => {
   let { nightTheme, setNightTheme } = useContext(ThemeContext);

@@ -1,9 +1,9 @@
-import useAuthUser from "../../hooks/useAuth";
+import useAuthUser from "../../hooks/useAuth.ts";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas";
 import { apiLoginUser } from "../../services/Login.api";
-import useMutate from "../../hooks/useMutation";
+import useMutate from "../../hooks/useMutation.ts";
 
 const Login = () => {
   const { login } = useAuthUser();

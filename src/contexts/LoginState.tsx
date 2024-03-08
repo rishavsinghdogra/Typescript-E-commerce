@@ -1,5 +1,7 @@
 import { useState } from "react";
-import loginStateContext from "./loginStateContext";
+import React from "react";
+import loginStateContext from "./loginStateContext.ts";
+
 
 const LoginState = (props) => {
   const [isAuthentic, setAuthentic] = useState(() => {
@@ -10,8 +12,9 @@ const LoginState = (props) => {
     }
   });
 
+
   return (
-    <loginStateContext.Provider value={{ isAuthentic, setAuthentic }}>
+    <loginStateContext.Provider value={{isAuthentic, setAuthentic}}>
       {props.children}
     </loginStateContext.Provider>
   );

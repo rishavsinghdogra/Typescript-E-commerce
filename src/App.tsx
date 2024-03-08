@@ -1,14 +1,14 @@
 import "./App.css";
-import AllDataContext from "./contexts/Alldata";
-import Mainsite from "./components/MainSite";
+import AllDataContext from "./contexts/Alldata.tsx";
+import Mainsite from "./components/MainSite.tsx";
 // import Login from "./components/auth/Login";
-import Login from "./components/Auth/Login"
+import Login from "./components/Auth/Login.tsx"
 import { Routes, Route } from "react-router-dom";
-import Protectedroute from "./routes/ProtectedRoutes"; 
-import ProductDetail from "./components/ProductDetail";
-import LoginState from "./contexts/LoginState";
+import Protectedroute from "./routes/ProtectedRoutes.tsx"; 
+import ProductDetail from "./components/ProductDetail.tsx";
+import LoginState from "./contexts/LoginState.tsx";
 import { ToastContainer } from "react-toastify";
-import ThemeProvider from "./contexts/ThemeContext";
+import ThemeProvider from "./contexts/ThemeContext.tsx";
 
 function App() {
   return (

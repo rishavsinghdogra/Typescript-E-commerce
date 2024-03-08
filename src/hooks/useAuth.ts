@@ -1,4 +1,4 @@
-import loginStateContext from "../contexts/loginStateContext";
+import loginStateContext from "../contexts/loginStateContext.ts";
 import { useContext } from "react";
 
 const useAuthUser = () => {

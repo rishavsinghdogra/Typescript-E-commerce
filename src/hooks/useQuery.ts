@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
 
 const useQuery = (apiFunction, { onSuccess, onError } = {}) => {
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       const response = await apiFunction();
@@ -18,6 +20,7 @@ const useQuery = (apiFunction, { onSuccess, onError } = {}) => {
     };
     fetchData();
   }, []);
+  return {loading, setLoading};
 };
 
 export default useQuery;

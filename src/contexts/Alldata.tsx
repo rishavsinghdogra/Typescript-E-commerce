@@ -1,4 +1,4 @@
-import mycontext from "./Mycontex";
+import mycontext from "./Mycontex.ts";
 import { useState } from "react";
 
 const AllDataContext = (props) => {

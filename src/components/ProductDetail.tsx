@@ -1,10 +1,10 @@
-import mycontext from "../contexts/Mycontex";
+import mycontext from "../contexts/Mycontex.ts";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import Navbar from "./Navbar.jsx";
+import Navbar from "./Navbar.tsx";
 import { toast } from "react-toastify";
-import ProductReview from "./ProductReview.jsx";
-import { ThemeContext } from "../contexts/ThemeContext.jsx";
+import ProductReview from "./ProductReview.tsx";
+import { ThemeContext } from "../contexts/ThemeContext.tsx";
 
 const ProductDetail = () => {
   const { products } = useContext(mycontext);
