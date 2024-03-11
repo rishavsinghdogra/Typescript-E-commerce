@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 
-const useMutate = (apiFunction, { onSuccess, onError } = {}) => {
+const useMutate = (apiFunction, { onSuccess , onError } = {}) => {
   const mutate = async (payload) => {
     try {
       const response = await apiFunction(payload);

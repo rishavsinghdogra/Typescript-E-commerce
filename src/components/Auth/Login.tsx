@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { basicSchema } from "../../schemas";
 import { apiLoginUser } from "../../services/Login.api";
 import useMutate from "../../hooks/useMutation.ts";
+import { AxiosError, AxiosResponse } from "axios";
 
 const Login = () => {
   const { login } = useAuthUser();
@@ -18,16 +19,16 @@ const Login = () => {
   });
 
   const { mutate } = useMutate(apiLoginUser, {
-    onSuccess: (response) => {
+    onSuccess: (response : AxiosResponse) => {
       login(response.data.token);
       navigate("/");
     },
-    onError: (error) => {
+    onError: (error : AxiosError) => {
       console.log(error);
     },
   });
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e : React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const credentials = {

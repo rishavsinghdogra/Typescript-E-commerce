@@ -1,6 +1,13 @@
-import { createContext, useState } from "react";
+import { SetStateAction, createContext, useState } from "react";
 
-export const ThemeContext = createContext();
+export type ThemeType = {
+    nightTheme: boolean;
+    setNightTheme: React.Dispatch<SetStateAction<boolean>>;
+}
+
+export type ThemeContextType = boolean | ThemeType;
+
+export const ThemeContext = createContext<ThemeContextType>(false);
 
 const ThemeProvider = (props) => {
 

@@ -6,32 +6,34 @@ import useQuery from "../hooks/useQuery.ts";
 import CartButton from "../assets/CartButton.tsx";
 import { ThemeContext } from "../contexts/ThemeContext.tsx";
 import Loader from "../assets/Loader.tsx";
+import { AlldataProducts } from "../contexts/Mycontex.ts";
+import { ThemeType } from "../contexts/ThemeContext.tsx";
+import { AxiosError, AxiosResponse } from "axios";
 
 const DisplayProduct = () => {
-  const { products, setProducts } = useContext(mycontext);
+  const { products, setProducts } = useContext(mycontext) as AlldataProducts;
 
-  let { nightTheme } = useContext(ThemeContext);
-  console.log(nightTheme);
+  let { nightTheme } = useContext(ThemeContext) as ThemeType;
 
-  const [clickedProducts, setClickedProducts] = useState([]);
+
+  const [clickedProducts, setClickedProducts] = useState<any[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const { loading, setLoading } = useQuery(apiProducts, {
-    onSuccess: (response) => {
+    onSuccess: (response: AxiosResponse) => {
       setProducts(response.data);
-      setLoading(false);
     },
-    onError(error) {
+    onError(error : AxiosError) {
       console.log(error);
     },
   });
 
-  const handleClick = (product) => {
+  const handleClick = (product : Record<string,any>) => {
     setClickedProducts([...clickedProducts, product]);
     setSidebarOpen(true); // Open the sidebar when a product is added
   };
 
-  const handleDelete = (index) => {
+  const handleDelete = (index : number) => {
     const updatedProducts = [...clickedProducts];
     updatedProducts.splice(index, 1);
     setClickedProducts(updatedProducts);

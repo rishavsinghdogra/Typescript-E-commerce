@@ -6,7 +6,7 @@ const ProductReview = () => {
   const [review, setReview] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
   };

@@ -4,16 +4,18 @@ import axios from "axios";
 import useAuthUser from "../hooks/useAuth.ts";
 import { ThemeSwitch } from "../assets/ThemeSwitch.ts";
 import { ThemeContext } from "../contexts/ThemeContext.tsx";
+import { AlldataProducts } from "../contexts/Mycontex.ts";
+import { ThemeType } from "../contexts/ThemeContext.tsx";
 
 export const Navbar = () => {
-  let { nightTheme, setNightTheme } = useContext(ThemeContext);
+  let { nightTheme, setNightTheme } = useContext(ThemeContext) as ThemeType;
   console.log("inside nav bar ", nightTheme);
-  const { products, setProducts } = useContext(mycontext);
+  const { products, setProducts } = useContext(mycontext) as AlldataProducts;
 
   const [search, setSearch] = useState("");
   const { logout } = useAuthUser();
 
-  const handleSearch = (event) => {
+  const handleSearch = (event : React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       const searchedProduct = products.filter((value) =>
         value.title.toLowerCase().includes(search.toLowerCase())
@@ -23,7 +25,7 @@ export const Navbar = () => {
     }
   };
 
-  const handleClick = async (str) => {
+  const handleClick = async (str : string) => {
     if (str === "men's clothing") {
       const mensClothing = products.filter(
         (value) => value.category === "men's clothing"

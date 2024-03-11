@@ -5,12 +5,14 @@ import Navbar from "./Navbar.tsx";
 import { toast } from "react-toastify";
 import ProductReview from "./ProductReview.tsx";
 import { ThemeContext } from "../contexts/ThemeContext.tsx";
+import { AlldataProducts } from "../contexts/Mycontex.ts";
+import { ThemeType } from "../contexts/ThemeContext.tsx";
 
 const ProductDetail = () => {
-  const { products } = useContext(mycontext);
+  const { products } = useContext(mycontext) as AlldataProducts;
   const { id } = useParams();
   const product = products[id - 1];
-  let {nightTheme} = useContext(ThemeContext);
+  let {nightTheme} = useContext(ThemeContext) as ThemeType;
 
   return (
     <>

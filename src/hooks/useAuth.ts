@@ -1,15 +1,16 @@
 import loginStateContext from "../contexts/loginStateContext.ts";
 import { useContext } from "react";
+import { LoginStateValues } from "../contexts/loginStateContext.ts";
 
 const useAuthUser = () => {
-  const { isAuthentic, setAuthentic } = useContext(loginStateContext);
+  const { isAuthentic, setAuthentic } = useContext(loginStateContext) as LoginStateValues;
 
   const logout = () => {
     localStorage.removeItem("token");
     setAuthentic(false);
   };
 
-  const login = (token) => {
+  const login = (token : string) => {
     localStorage.setItem("token", token);
     setAuthentic(true);
   };

@@ -10,6 +10,7 @@ const useQuery = (apiFunction, { onSuccess, onError } = {}) => {
       try {
         if (onSuccess) {
           onSuccess(response);
+          setLoading(false);
         }
         return response;
       } catch (error) {

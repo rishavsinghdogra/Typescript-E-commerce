@@ -1,10 +1,10 @@
 import { SetStateAction, createContext } from "react";
 
-export type obj = {
+export type LoginStateValues = {
     isAuthentic : boolean
     setAuthentic: React.Dispatch<SetStateAction<boolean>>
 }
-export type LoginStateContextType = boolean | obj;
+export type LoginStateContextType = boolean | LoginStateValues;
 
 const loginStateContext = createContext<LoginStateContextType>(false);
 

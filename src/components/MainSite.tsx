@@ -1,6 +1,5 @@
 import Navbar from "./Navbar.tsx";
 import DisplayProduct from "./DisplayProduct.tsx";
-import ThemeProvider from "../contexts/ThemeContext";
 
 const Mainsite = () => {
   return (
