@@ -8,7 +8,6 @@ const api = axios.create({
 
 api.interceptors.request.use(
   function (config) {
-    console.log(config);
     config.timeout = 5000;
     return config;
   },

@@ -9,13 +9,12 @@ import { ThemeType } from "../contexts/ThemeContext.tsx";
 
 export const Navbar = () => {
   let { nightTheme, setNightTheme } = useContext(ThemeContext) as ThemeType;
-  console.log("inside nav bar ", nightTheme);
   const { products, setProducts } = useContext(mycontext) as AlldataProducts;
 
   const [search, setSearch] = useState("");
   const { logout } = useAuthUser();
 
-  const handleSearch = (event : React.KeyboardEvent<HTMLInputElement>) => {
+  const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       const searchedProduct = products.filter((value) =>
         value.title.toLowerCase().includes(search.toLowerCase())
@@ -25,7 +24,7 @@ export const Navbar = () => {
     }
   };
 
-  const handleClick = async (str : string) => {
+  const handleClick = async (str: string) => {
     if (str === "men's clothing") {
       const mensClothing = products.filter(
         (value) => value.category === "men's clothing"
@@ -47,7 +46,6 @@ export const Navbar = () => {
       );
       setProducts(womensclothing);
     } else {
-      console.log("idk");
     }
   };
 
@@ -74,45 +72,49 @@ export const Navbar = () => {
           placeholder="Search..."
         />
         <div className="m-auto">
-          <button
-            onClick={() => handleClick("men's clothing")}
-            className={`font-bold text-gray-800 ${
-              nightTheme ? "hover:text-white" : "hover:text-yellow-600"
-            }  ml-4  transition duration-300 ease-in-out`}
-          >
-            Men's Clothing
-          </button>
-          <button
-            onClick={() => handleClick("jewelery")}
-            className={`font-bold text-gray-800 ${
-              nightTheme ? "hover:text-white" : "hover:text-yellow-600"
-            } ml-4 transition duration-300 ease-in-out`}
-          >
-            Jewelry
-          </button>
-          <button
-            onClick={() => handleClick("electronics")}
-            className={`font-bold text-gray-800 ${
-              nightTheme ? "hover:text-white" : "hover:text-yellow-600"
-            } ml-4  transition duration-300 ease-in-out`}
-          >
-            Electronics
-          </button>
-          <button
-            onClick={() => handleClick("women's clothing")}
-            className={`font-bold text-gray-800 ${
-              nightTheme ? "hover:text-white" : "hover:text-yellow-600"
-            } ml-4  transition duration-300 ease-in-out`}
-          >
-            Women's Clothing
-          </button>
+          <div className="hidden md:flex">
+            {" "}
+            {/* hide on screen less than 700px */}
+            <button
+              onClick={() => handleClick("men's clothing")}
+              className={`font-bold text-gray-800 ${
+                nightTheme ? "hover:text-white" : "hover:text-yellow-600"
+              }  ml-4  transition duration-300 ease-in-out`}
+            >
+              Men's Clothing
+            </button>
+            <button
+              onClick={() => handleClick("jewelery")}
+              className={`font-bold text-gray-800 ${
+                nightTheme ? "hover:text-white" : "hover:text-yellow-600"
+              } ml-4 transition duration-300 ease-in-out`}
+            >
+              Jewelry
+            </button>
+            <button
+              onClick={() => handleClick("electronics")}
+              className={`font-bold text-gray-800 ${
+                nightTheme ? "hover:text-white" : "hover:text-yellow-600"
+              } ml-4  transition duration-300 ease-in-out`}
+            >
+              Electronics
+            </button>
+            <button
+              onClick={() => handleClick("women's clothing")}
+              className={`font-bold text-gray-800 ${
+                nightTheme ? "hover:text-white" : "hover:text-yellow-600"
+              } ml-4  transition duration-300 ease-in-out`}
+            >
+              Women's Clothing
+            </button>
+          </div>
         </div>
-        <ThemeSwitch onClick={() => toggleTheme()} />
+        <ThemeSwitch className="mr-1" onClick={() => toggleTheme()} />
         <button
           onClick={() => {
             logout();
           }}
-          className={`relative mr-auto inline-block px-4 py-2 text-white font-bold transition duration-300 ease-in-out bg-gradient-to-r ${
+          className={`relative mr-4 inline-block px-4 py-2 text-white font-bold transition duration-300 ease-in-out bg-gradient-to-r ${
             nightTheme
               ? "from-[#090254] to-[#bea9de] hover:from-[#bea9de] hover:to-blue-950"
               : "from-orange-700 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600"
@@ -120,11 +122,6 @@ export const Navbar = () => {
         >
           Logout
         </button>
-        <img
-          src="src/assets/cart.svg"
-          alt="Cart"
-          className="h-8 ml-auto mr-4 "
-        />
       </div>
     </div>
   );

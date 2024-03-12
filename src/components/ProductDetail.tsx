@@ -12,17 +12,21 @@ const ProductDetail = () => {
   const { products } = useContext(mycontext) as AlldataProducts;
   const { id } = useParams();
   const product = products[id - 1];
-  let {nightTheme} = useContext(ThemeContext) as ThemeType;
+  let { nightTheme } = useContext(ThemeContext) as ThemeType;
 
   return (
     <>
       <Navbar />
-      <div className={`container relative mx-auto mt-8 flex flex-col top-[55px] ${nightTheme ? "bg-slate-300" : "" } `} >
+      <div
+        className={`container relative mx-auto mt-8 flex flex-col top-[55px] ${
+          nightTheme ? "bg-slate-300" : ""
+        } `}
+      >
         <div className="flex justify-center">
           <img
             src={product.image}
             alt={product.title}
-            className="max-w-md rounded-lg mt-3"
+            className=" max-w-md mx-6 h-auto rounded-lg mt-3 "
           />
         </div>
         <div className="ml-8">
@@ -43,7 +47,9 @@ const ProductDetail = () => {
             </div>
           </div>
           <button
-            onClick={ () => {toast.success("Product added to cart!")}}
+            onClick={() => {
+              toast.success("Product added to cart!");
+            }}
             className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-2 px-4 rounded-lg hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition duration-300"
           >
             Add to Cart

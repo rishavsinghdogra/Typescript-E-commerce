@@ -1,13 +1,9 @@
-import LoadingImage from "./Loading.png";
+import tubeSpinner from "./tubeSpinner.svg";
 
 const Loader = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen w-screen">
-      <img
-        src={LoadingImage}
-        alt="Loading"
-        className="animate-spin h-96 w-96"
-      />
+      <img src={tubeSpinner} alt="Loading" className=" h-32 w-32" />
       <p className="mt-4 text-lg font-semibold">Loading</p>
     </div>
   );

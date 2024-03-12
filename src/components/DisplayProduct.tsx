@@ -15,7 +15,6 @@ const DisplayProduct = () => {
 
   let { nightTheme } = useContext(ThemeContext) as ThemeType;
 
-
   const [clickedProducts, setClickedProducts] = useState<any[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -23,19 +22,41 @@ const DisplayProduct = () => {
     onSuccess: (response: AxiosResponse) => {
       setProducts(response.data);
     },
-    onError(error : AxiosError) {
+    onError(error: AxiosError) {
       console.log(error);
     },
   });
 
-  const handleClick = (product : Record<string,any>) => {
-    setClickedProducts([...clickedProducts, product]);
-    setSidebarOpen(true); // Open the sidebar when a product is added
+  const handleClick = (product: Record<string, any>) => {
+    const index = clickedProducts.findIndex((p) => p.id === product.id);
+    if (index !== -1) {
+      const updatedProducts = [...clickedProducts];
+      updatedProducts[index].count += 1;
+      setClickedProducts(updatedProducts);
+    } else {
+      setClickedProducts([...clickedProducts, { ...product, count: 1 }]);
+      setSidebarOpen(true); // Open the sidebar when a product is added
+    }
   };
 
-  const handleDelete = (index : number) => {
+  const handleDelete = (index: number) => {
     const updatedProducts = [...clickedProducts];
     updatedProducts.splice(index, 1);
+    setClickedProducts(updatedProducts);
+  };
+
+  const handlePlus = (index: number) => {
+    const updatedProducts = [...clickedProducts];
+    updatedProducts[index].count += 1;
+    setClickedProducts(updatedProducts);
+  };
+
+  const handleMinus = (index: number) => {
+    const updatedProducts = [...clickedProducts];
+    updatedProducts[index].count -= 1;
+    if (updatedProducts[index].count === 0) {
+      updatedProducts.splice(index, 1);
+    }
     setClickedProducts(updatedProducts);
   };
 
@@ -45,7 +66,7 @@ const DisplayProduct = () => {
 
   return (
     <div
-      className={`relative top-[75px] text-xs flex flex-wrap justify-center sm:justify-start ${
+      className={` text-xs flex flex-wrap justify-center sm:justify-start ${
         nightTheme ? "night-theme" : ""
       }`}
     >
@@ -72,13 +93,15 @@ const DisplayProduct = () => {
               src={value.image}
               alt={value.title}
             />
-            <div className="group text-center  truncat w-[150px]  mb-4">
+            <div className="group text-center w-[150px] mb-4">
               <Link
                 to={`/productDetail/${value.id}`}
                 className="text-center text-white font-semibold mb-2 "
               >
-                <p className="title truncate  hover:overflow-visible hover:text-wrap px-2">
-                  {value.title}
+                <p className="title truncate hover:text-wrap px-2">
+                  {value.title.split(" ").length > 5
+                    ? value.title.split(" ").slice(0, 5).join(" ") + "..."
+                    : value.title}
                 </p>
               </Link>
             </div>
@@ -113,35 +136,54 @@ const DisplayProduct = () => {
         {clickedProducts.map((product, index) => (
           <div
             key={index}
-            className={`flex items-center py-2 px-4 rounded-lg shadow-md mb-4 hover:bg-fuchsia-800 transition-colors duration-300 ${
+            className={`flex flex-col items-center py-2 px-4 rounded-lg shadow-md mb-4 hover:bg-fuchsia-800 transition-colors duration-300 ${
               nightTheme ? "bg-gray-700" : "bg-fuchsia-700"
             }`}
           >
-            <img
-              className="w-12 h-12 object-cover rounded-full mr-2"
-              src={product.image}
-              alt={product.title}
-            />
-            <div>
-              <h2
-                className={`${
-                  nightTheme ? "text-gray-200" : "text-white"
-                } font-semibold`}
-              >
-                {product.title}
-              </h2>
-              <p
-                className={`${nightTheme ? "text-gray-300" : "text-gray-200"}`}
-              >
-                {product.price}
-              </p>
+            <div className="flex items-center">
+              <img
+                className="w-12 h-12 object-cover rounded-full mr-2"
+                src={product.image}
+                alt={product.title}
+              />
+              <div>
+                <h2
+                  className={`${
+                    nightTheme ? "text-gray-200" : "text-white"
+                  } font-semibold`}
+                >
+                  {product.title}
+                </h2>
+                <p
+                  className={`${
+                    nightTheme ? "text-gray-300" : "text-gray-200"
+                  }`}
+                >
+                  {`$ ${product.price}`}
+                </p>
+              </div>
             </div>
-            <button
-              onClick={() => handleDelete(index)}
-              className={`ml-auto inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 transition-colors duration-300`}
-            >
-              Delete
-            </button>
+            <div className="flex items-center mt-2 ">
+              <button
+                onClick={() => handleMinus(index)}
+                className={`inline-flex items-center px-2 py-1 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-red-500 hover:bg-red-600 transition-colors duration-300`}
+              >
+                -
+              </button>
+              <span className="px-2">{product.count}</span>
+              <button
+                onClick={() => handlePlus(index)}
+                className={`inline-flex items-center mr-1 px-2 py-1 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-red-500 hover:bg-red-600 transition-colors duration-300`}
+              >
+                +
+              </button>
+              <button
+                onClick={() => handleDelete(index)}
+                className={`ml-auto inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-red-500 hover:bg-red-600 transition-colors duration-300`}
+              >
+                Delete
+              </button>
+            </div>
           </div>
         ))}
       </div>

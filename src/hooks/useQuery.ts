@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-
 const useQuery = (apiFunction, { onSuccess, onError } = {}) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -21,7 +20,7 @@ const useQuery = (apiFunction, { onSuccess, onError } = {}) => {
     };
     fetchData();
   }, []);
-  return {loading, setLoading};
+  return { loading, setLoading };
 };
 
 export default useQuery;

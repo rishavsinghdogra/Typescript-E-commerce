@@ -4,7 +4,9 @@ import loginStateContext from "../contexts/loginStateContext.ts";
 import { LoginStateValues } from "../contexts/loginStateContext.ts";
 
 const Protectedroute = () => {
-  const { isAuthentic, setAuthentic } = useContext(loginStateContext) as LoginStateValues;
+  const { isAuthentic, setAuthentic } = useContext(
+    loginStateContext
+  ) as LoginStateValues;
   return <>{isAuthentic ? <Outlet /> : <Navigate to="/login" />}</>;
 };
 

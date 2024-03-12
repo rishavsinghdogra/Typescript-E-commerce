@@ -19,16 +19,16 @@ const Login = () => {
   });
 
   const { mutate } = useMutate(apiLoginUser, {
-    onSuccess: (response : AxiosResponse) => {
+    onSuccess: (response: AxiosResponse) => {
       login(response.data.token);
       navigate("/");
     },
-    onError: (error : AxiosError) => {
+    onError: (error: AxiosError) => {
       console.log(error);
     },
   });
 
-  const handleLogin = async (e : React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const credentials = {

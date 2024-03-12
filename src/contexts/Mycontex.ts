@@ -1,9 +1,9 @@
 import { SetStateAction, createContext } from "react";
 
 export type AlldataProducts = {
-    products : any[];
-    setProducts: React.Dispatch<SetStateAction<any[]>>
-}
+  products: any[];
+  setProducts: React.Dispatch<SetStateAction<any[]>>;
+};
 
 export type AlldataContextType = any[] | AlldataProducts;
 
