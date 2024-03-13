@@ -77,10 +77,7 @@ const Login = () => {
         </button>
 
         <p className="mt-4 text-center text-gray-600">
-          Don't have an account?{" "}
-          <a href="/signup" className="text-blue-500">
-            Sign up
-          </a>
+          Don't have an account? <p className="text-blue-500">Sign up</p>
         </p>
       </form>
     </div>

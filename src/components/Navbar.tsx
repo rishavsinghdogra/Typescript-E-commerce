@@ -6,10 +6,16 @@ import { ThemeSwitch } from "../assets/ThemeSwitch.ts";
 import { ThemeContext } from "../contexts/ThemeContext.tsx";
 import { AlldataProducts } from "../contexts/Mycontex.ts";
 import { ThemeType } from "../contexts/ThemeContext.tsx";
+import { useNavigate } from "react-router-dom";
+import { apiJewelery } from "../services/Products.api.ts";
+import { AxiosResponse, AxiosError } from "axios";
+import useQuery from "../hooks/useQuery.ts";
 
 export const Navbar = () => {
   let { nightTheme, setNightTheme } = useContext(ThemeContext) as ThemeType;
-  const { products, setProducts } = useContext(mycontext) as AlldataProducts;
+  let { products, setProducts, ogProducts } = useContext(
+    mycontext
+  ) as AlldataProducts;
 
   const [search, setSearch] = useState("");
   const { logout } = useAuthUser();
@@ -26,21 +32,26 @@ export const Navbar = () => {
 
   const handleClick = async (str: string) => {
     if (str === "men's clothing") {
+      products = ogProducts;
       const mensClothing = products.filter(
         (value) => value.category === "men's clothing"
       );
       setProducts(mensClothing);
     } else if (str === "jewelery") {
+      products = ogProducts;
       const jewelery = await axios.get(
         "https://fakestoreapi.com/products/category/jewelery"
       );
+     
       setProducts(jewelery.data);
     } else if (str === "electronics") {
+      products = ogProducts;
       const electronics = await axios.get(
         "https://fakestoreapi.com/products/category/electronics"
       );
       setProducts(electronics.data);
     } else if (str === "women's clothing") {
+      products = ogProducts;
       const womensclothing = products.filter(
         (value) => value.category === "women's clothing"
       );
@@ -53,6 +64,8 @@ export const Navbar = () => {
     setNightTheme(!nightTheme);
   };
 
+  const navigate = useNavigate();
+
   return (
     <div
       className={` bg-gradient-to-r ${
@@ -62,7 +75,15 @@ export const Navbar = () => {
       } shadow-md fixed top-0 w-full z-50`}
     >
       <div className="flex items-center h-16">
-        <p className="text-lg font-bold ml-4">Rishav Store</p>
+        <p
+          onClick={() => {
+            setProducts(ogProducts);
+            navigate("/");
+          }}
+          className="text-lg font-bold ml-4"
+        >
+          Rishav Store
+        </p>
 
         <input
           onKeyUp={handleSearch}

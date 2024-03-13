@@ -7,6 +7,6 @@ export const basicSchema = yup.object().shape({
   password: yup
     .string()
     .min(6)
-    .matches(passwordRules, { message: "Password should be strong like you!" })
+    .matches(passwordRules, { message: " Tip : Always have a strong passwrod!" })
     .required("Required"),
 });

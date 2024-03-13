@@ -11,16 +11,22 @@ import { ThemeType } from "../contexts/ThemeContext.tsx";
 import { AxiosError, AxiosResponse } from "axios";
 
 const DisplayProduct = () => {
-  const { products, setProducts } = useContext(mycontext) as AlldataProducts;
+  const {
+    products,
+    setProducts,
+    setOgProducts,
+    clickedProducts,
+    setClickedProducts,
+    sidebarOpen,
+    setSidebarOpen,
+  } = useContext(mycontext) as AlldataProducts;
 
   let { nightTheme } = useContext(ThemeContext) as ThemeType;
-
-  const [clickedProducts, setClickedProducts] = useState<any[]>([]);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const { loading, setLoading } = useQuery(apiProducts, {
     onSuccess: (response: AxiosResponse) => {
       setProducts(response.data);
+      setOgProducts(response.data);
     },
     onError(error: AxiosError) {
       console.log(error);
@@ -66,7 +72,7 @@ const DisplayProduct = () => {
 
   return (
     <div
-      className={` text-xs flex flex-wrap justify-center sm:justify-start ${
+      className={` text-xs flex flex-wrap justify-center sm:justify-start pb-4 ${
         nightTheme ? "night-theme" : ""
       }`}
     >
@@ -83,10 +89,6 @@ const DisplayProduct = () => {
                 ? "from-blue-600 to-blue-800"
                 : "from-blue-200 to-blue-400"
             }`}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleClick(value);
-            }}
           >
             <img
               className="w-[100px] h-[100px] object-cover mb-2 rounded-full"
@@ -100,19 +102,27 @@ const DisplayProduct = () => {
               >
                 <p className="title truncate hover:text-wrap px-2">
                   {value.title.split(" ").length > 5
-                    ? value.title.split(" ").slice(0, 5).join(" ") + "..."
+                    ? value.title.split(" ").slice(0, 4).join(" ") + "..."
                     : value.title}
                 </p>
               </Link>
             </div>
-            <CartButton />
+            <div
+              className="cartButton inline"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleClick(value);
+              }}
+            >
+              <CartButton />
+            </div>
           </div>
         ))
       )}
 
       {/* Sidebar */}
       <div
-        className={`sidebar fixed h-screen w-[250px] z-20 right-0 top-[65px] overflow-y-auto transform transition-transform ${
+        className={`sidebar fixed h-screen w-[250px] z-40 right-0 top-[65px] overflow-y-auto transform transition-transform ${
           sidebarOpen ? "translate-x-0 backdrop-blur-lg" : "translate-x-full"
         } `}
       >
@@ -128,6 +138,9 @@ const DisplayProduct = () => {
           >
             Cart
           </h2>
+          <div className="CartCount bg-yellow-400 p-1 font-bold rounded-md shadow-inner text-gray-600">
+            Total Products {clickedProducts.length}
+          </div>
           <button onClick={closeSidebar} className="text-white">
             Close
           </button>

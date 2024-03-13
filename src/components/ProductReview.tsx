@@ -1,10 +1,16 @@
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useContext } from "react";
+import mycontext from "../contexts/Mycontex";
+import { AlldataProducts } from "../contexts/Mycontex";
 
 const ProductReview = () => {
   const [review, setReview] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const { clickedProducts, setClickedProducts } = useContext(
+    mycontext
+  ) as AlldataProducts;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
