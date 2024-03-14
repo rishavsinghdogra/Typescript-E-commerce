@@ -1,6 +1,6 @@
 const SiteFooter = () => {
     return (
-        <footer className="bg-gray-900 text-white py-12">
+        <footer className=" bg-gray-900 text-white py-12 h-svh">
             <div className="container mx-auto flex flex-col md:flex-row pl-8">
                 <div className="mb-8 md:mb-0 md:w-1/3">
                     <h2 className="text-2xl font-bold mb-4">Your Ecommerce Store</h2>
@@ -27,7 +27,7 @@ const SiteFooter = () => {
                     </div>
                 </div>
             </div>
-            <div className="border-t border-gray-800 mt-8 pt-8 text-center">
+            <div className="border-t border-gray-800 mt-8 pt-8 text-center ">
                 <p className="text-gray-500">© {new Date().getFullYear()} Your Ecommerce Store. All rights reserved.</p>
             </div>
         </footer>

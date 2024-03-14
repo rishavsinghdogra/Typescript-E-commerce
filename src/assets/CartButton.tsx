@@ -1,13 +1,14 @@
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Button } from "@mui/material";
-const CartButton = () => {
+const CartButton = (props) => {
+  const ht = props.height;
   return (
     <Button
       variant="contained"
       startIcon={<AddShoppingCartIcon />}
       sx={{
         width: 120,
-        height: 30,
+        height: ht,
         background: "#F9A03F",
         fontSize: 11,
         textTransform: "none",

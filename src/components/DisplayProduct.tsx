@@ -9,6 +9,7 @@ import Loader from "../assets/Loader.tsx";
 import { AlldataProducts } from "../contexts/Mycontex.ts";
 import { ThemeType } from "../contexts/ThemeContext.tsx";
 import { AxiosError, AxiosResponse } from "axios";
+import Sidebar from "./Sidebar.tsx";
 
 const DisplayProduct = () => {
   let {
@@ -17,17 +18,13 @@ const DisplayProduct = () => {
     setOgProducts,
     clickedProducts,
     setClickedProducts,
-    sidebarOpen,
     setSidebarOpen,
-    setIsCategory,
     isCategory,
   } = useContext(mycontext) as AlldataProducts;
 
   let { nightTheme } = useContext(ThemeContext) as ThemeType;
 
-  const navigate = useNavigate();
-
-  const { loading, setLoading } = useQuery(apiProducts, {
+  const { loading } = useQuery(apiProducts, {
     onSuccess: (response: AxiosResponse) => {
       if (!isCategory) {
         setProducts(response.data);
@@ -51,31 +48,6 @@ const DisplayProduct = () => {
     }
   };
 
-  const handleDelete = (index: number) => {
-    const updatedProducts = [...clickedProducts];
-    updatedProducts.splice(index, 1);
-    setClickedProducts(updatedProducts);
-  };
-
-  const handlePlus = (index: number) => {
-    const updatedProducts = [...clickedProducts];
-    updatedProducts[index].count += 1;
-    setClickedProducts(updatedProducts);
-  };
-
-  const handleMinus = (index: number) => {
-    const updatedProducts = [...clickedProducts];
-    updatedProducts[index].count -= 1;
-    if (updatedProducts[index].count === 0) {
-      updatedProducts.splice(index, 1);
-    }
-    setClickedProducts(updatedProducts);
-  };
-
-  const closeSidebar = () => {
-    setSidebarOpen(false); // Close the sidebar
-  };
-
   return (
     <div
       className={` Proudct tile text-xs flex flex-wrap justify-center sm:justify-start pb-4 ${
@@ -95,10 +67,6 @@ const DisplayProduct = () => {
                 ? "from-blue-600 to-blue-800"
                 : "from-blue-200 to-blue-400"
             }`}
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   navigate(`/productDetail/${value.id}`);
-            // }}
           >
             <img
               className="w-[100px] h-[100px] object-cover mb-2 rounded-full"
@@ -124,92 +92,12 @@ const DisplayProduct = () => {
                 handleClick(value);
               }}
             >
-              <CartButton />
+              <CartButton height={30} />
             </div>
           </div>
         ))
       )}
-
-      {/* Sidebar */}
-      <div
-        className={`sidebar fixed h-screen w-[250px] z-40 right-0 top-[65px] overflow-y-auto transform transition-transform ${
-          sidebarOpen ? "translate-x-0 backdrop-blur-lg" : "translate-x-full"
-        } `}
-      >
-        <div
-          className={`flex justify-between items-center p-4 ${
-            nightTheme ? "bg-gray-800" : "bg-[#E69A8D] text-white"
-          }`}
-        >
-          <h2
-            className={`font-semibold ${
-              nightTheme ? "text-gray-200" : "text-white"
-            } `}
-          >
-            Cart
-          </h2>
-          <div className="CartCount bg-yellow-400 p-1 font-bold rounded-md shadow-inner text-gray-600">
-            Total Products {clickedProducts.length}
-          </div>
-          <button onClick={closeSidebar} className="text-white">
-            Close
-          </button>
-        </div>
-        {/* Render all clicked products in the sidebar */}
-        {clickedProducts.map((product, index) => (
-          <div
-            key={index}
-            className={`flex flex-col items-center py-2 px-4 rounded-lg shadow-md mb-4 hover:bg-fuchsia-800 transition-colors duration-300 ${
-              nightTheme ? "bg-gray-700" : "bg-fuchsia-700"
-            }`}
-          >
-            <div className="flex items-center">
-              <img
-                className="w-12 h-12 object-cover rounded-full mr-2"
-                src={product.image}
-                alt={product.title}
-              />
-              <div>
-                <h2
-                  className={`${
-                    nightTheme ? "text-gray-200" : "text-white"
-                  } font-semibold`}
-                >
-                  {product.title}
-                </h2>
-                <p
-                  className={`${
-                    nightTheme ? "text-gray-300" : "text-gray-200"
-                  }`}
-                >
-                  {`$ ${product.price}`}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center mt-2 ">
-              <button
-                onClick={() => handleMinus(index)}
-                className={`inline-flex items-center px-2 py-1 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-red-500 hover:bg-red-600 transition-colors duration-300`}
-              >
-                -
-              </button>
-              <span className="px-2">{product.count}</span>
-              <button
-                onClick={() => handlePlus(index)}
-                className={`inline-flex items-center mr-1 px-2 py-1 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-red-500 hover:bg-red-600 transition-colors duration-300`}
-              >
-                +
-              </button>
-              <button
-                onClick={() => handleDelete(index)}
-                className={`ml-auto inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-red-500 hover:bg-red-600 transition-colors duration-300`}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+      <Sidebar />
     </div>
   );
 };

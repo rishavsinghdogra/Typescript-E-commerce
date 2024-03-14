@@ -7,12 +7,17 @@ import { AlldataProducts } from "../contexts/Mycontex.ts";
 import mycontext from "../contexts/Mycontex.ts";
 import ProductReview from "./ProductReview.tsx";
 import { useEffect } from "react";
+import Sidebar from "./Sidebar.tsx";
+import CartButton from "../assets/CartButton.tsx";
 
 const ProductDetail = () => {
   const { id } = useParams();
   let {
     ogProducts,
-    setIsCategory
+    setIsCategory,
+    clickedProducts,
+    setClickedProducts,
+    setSidebarOpen,
   } = useContext(mycontext) as AlldataProducts;
 
   const product = ogProducts[id - 1];
@@ -22,6 +27,17 @@ const ProductDetail = () => {
     setIsCategory(true);
   }, []);
 
+  const handleClick = (product: Record<string, any>) => {
+    const index = clickedProducts.findIndex((p) => p.id === product.id);
+    if (index !== -1) {
+      const updatedProducts = [...clickedProducts];
+      updatedProducts[index].count += 1;
+      setClickedProducts(updatedProducts);
+    } else {
+      setClickedProducts([...clickedProducts, { ...product, count: 1 }]);
+      setSidebarOpen(true); // Open the sidebar when a product is added
+    }
+  };
   return (
     <>
       <Navbar />
@@ -55,15 +71,27 @@ const ProductDetail = () => {
             </div>
           </div>
           <button
-          onClick={() => {
-            toast.success("🎉 Product on its way!");
-          }}
+            onClick={() => {
+              toast.success("🎉 Product on its way!");
+            }}
             className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-2 px-4 rounded-lg hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition duration-300"
           >
             BUY NOW
           </button>
+          <div
+            className="relative cartButton inline ml-2 bottom-1 "
+            onClick={(e) => {
+              e.stopPropagation();
+              handleClick(product);
+            }}
+          >
+            <CartButton height = {37} />
+          </div>
           <ProductReview />
         </div>
+      </div>
+      <div className="sidbar text-xs">
+        <Sidebar />
       </div>
     </>
   );
