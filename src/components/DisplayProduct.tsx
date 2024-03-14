@@ -36,7 +36,6 @@ const DisplayProduct = () => {
     },
   });
 
-  // isCategory = false;
 
   const handleClick = (product: Record<string, any>) => {
     const index = clickedProducts.findIndex((p) => p.id === product.id);
@@ -77,7 +76,7 @@ const DisplayProduct = () => {
 
   return (
     <div
-      className={` text-xs flex flex-wrap justify-center sm:justify-start pb-4 ${
+      className={` Proudct tile text-xs flex flex-wrap justify-center sm:justify-start pb-4 ${
         nightTheme ? "night-theme" : ""
       }`}
     >
