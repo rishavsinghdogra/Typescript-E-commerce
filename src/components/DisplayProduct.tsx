@@ -19,6 +19,7 @@ const DisplayProduct = () => {
     setClickedProducts,
     sidebarOpen,
     setSidebarOpen,
+    setIsCategory,
     isCategory,
   } = useContext(mycontext) as AlldataProducts;
 
@@ -36,6 +37,7 @@ const DisplayProduct = () => {
     },
   });
 
+  // setIsCategory(false);
 
   const handleClick = (product: Record<string, any>) => {
     const index = clickedProducts.findIndex((p) => p.id === product.id);
@@ -86,41 +88,41 @@ const DisplayProduct = () => {
       ) : (
         // Products
         products.map((value, index) => (
-          <div
-            key={index}
-            className={`product hover:scale-125 flex flex-col items-center shadow-lg rounded-md w-[150px] h-[200px] justify-center mr-4 mb-4 sm:mr-0 sm:mb-0 sm:ml-4 sm:mt-4 hover:duration-300 bg-gradient-to-br ${
-              nightTheme
-                ? "from-blue-600 to-blue-800"
-                : "from-blue-200 to-blue-400"
-            }`}
+          <Link
+            to={`/productDetail/${value.id}`}
+            className="text-center text-white font-semibold mb-2 "
           >
-            <img
-              className="w-[100px] h-[100px] object-cover mb-2 rounded-full"
-              src={value.image}
-              alt={value.title}
-            />
-            <div className="group text-center w-[150px] mb-4">
-              <Link
-                to={`/productDetail/${value.id}`}
-                className="text-center text-white font-semibold mb-2 "
-              >
+            <div
+              key={index}
+              className={`product hover:scale-125 flex flex-col items-center shadow-lg rounded-md w-[150px] h-[200px] justify-center mr-4 mb-4 sm:mr-0 sm:mb-0 sm:ml-4 sm:mt-4 hover:duration-300 bg-gradient-to-br ${
+                nightTheme
+                  ? "from-blue-600 to-blue-800"
+                  : "from-blue-200 to-blue-400"
+              }`}
+            >
+              <img
+                className="w-[100px] h-[100px] object-cover mb-2 rounded-full"
+                src={value.image}
+                alt={value.title}
+              />
+              <div className="group text-center w-[150px] mb-4">
                 <p className="title truncate hover:text-wrap px-2">
                   {value.title.split(" ").length > 5
                     ? value.title.split(" ").slice(0, 4).join(" ") + "..."
                     : value.title}
                 </p>
-              </Link>
+              </div>
+              <div
+                className="cartButton inline"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleClick(value);
+                }}
+              >
+                <CartButton />
+              </div>
             </div>
-            <div
-              className="cartButton inline"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleClick(value);
-              }}
-            >
-              <CartButton />
-            </div>
-          </div>
+          </Link>
         ))
       )}
 
