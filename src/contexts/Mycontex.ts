@@ -9,6 +9,8 @@ export type AlldataProducts = {
   setClickedProducts: React.Dispatch<SetStateAction<any[]>>;
   sidebarOpen: boolean;
   setSidebarOpen: React.Dispatch<SetStateAction<boolean>>;
+  isCategory: boolean;
+  setIsCategory: React.Dispatch<SetStateAction<boolean>>;
 };
 
 export type AlldataContextType = any[] | AlldataProducts;

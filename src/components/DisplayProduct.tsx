@@ -11,7 +11,7 @@ import { ThemeType } from "../contexts/ThemeContext.tsx";
 import { AxiosError, AxiosResponse } from "axios";
 
 const DisplayProduct = () => {
-  const {
+  let {
     products,
     setProducts,
     setOgProducts,
@@ -19,19 +19,24 @@ const DisplayProduct = () => {
     setClickedProducts,
     sidebarOpen,
     setSidebarOpen,
+    isCategory,
   } = useContext(mycontext) as AlldataProducts;
 
   let { nightTheme } = useContext(ThemeContext) as ThemeType;
 
   const { loading, setLoading } = useQuery(apiProducts, {
     onSuccess: (response: AxiosResponse) => {
-      setProducts(response.data);
+      if (!isCategory) {
+        setProducts(response.data);
+      }
       setOgProducts(response.data);
     },
     onError(error: AxiosError) {
       console.log(error);
     },
   });
+
+  // isCategory = false;
 
   const handleClick = (product: Record<string, any>) => {
     const index = clickedProducts.findIndex((p) => p.id === product.id);
