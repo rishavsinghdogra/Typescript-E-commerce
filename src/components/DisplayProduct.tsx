@@ -95,6 +95,10 @@ const DisplayProduct = () => {
                 ? "from-blue-600 to-blue-800"
                 : "from-blue-200 to-blue-400"
             }`}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/productDetail/${value.id}`);
+            }}
           >
             <img
               className="w-[100px] h-[100px] object-cover mb-2 rounded-full"
