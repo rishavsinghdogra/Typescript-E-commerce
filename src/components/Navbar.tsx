@@ -7,10 +7,11 @@ import { ThemeContext } from "../contexts/ThemeContext.tsx";
 import { AlldataProducts } from "../contexts/Mycontex.ts";
 import { ThemeType } from "../contexts/ThemeContext.tsx";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const Navbar = () => {
   let { nightTheme, setNightTheme } = useContext(ThemeContext) as ThemeType;
-  let { products, setProducts, ogProducts, setIsCategory } = useContext(
+  let { products, setProducts, ogProducts } = useContext(
     mycontext
   ) as AlldataProducts;
 
@@ -102,7 +103,10 @@ export const Navbar = () => {
             const searchedProduct = products.filter((value) =>
               value.title.toLowerCase().includes(search.toLowerCase())
             );
-            setProducts(searchedProduct);
+            console.log(searchedProduct);
+            !searchedProduct.length || searchedProduct.length === 20
+              ? toast.error("😟 No such product found")
+              : setProducts(searchedProduct);
           }}
         >
           Search
@@ -166,4 +170,3 @@ export const Navbar = () => {
 };
 
 export default Navbar;
-

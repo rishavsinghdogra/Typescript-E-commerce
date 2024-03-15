@@ -8,7 +8,7 @@ import ProductDetail from "./components/ProductDetail.tsx";
 import LoginState from "./contexts/LoginState.tsx";
 import { ToastContainer } from "react-toastify";
 import ThemeProvider from "./contexts/ThemeContext.tsx";
-import Electronics from "./components/categories/Electronics.tsx"
+
 
 function App() {
   return (
@@ -21,7 +21,6 @@ function App() {
               <Route element={<Protectedroute />}>
                 <Route path="/" element={<Mainsite />} />
                 <Route path="/productDetail/:id" element={<ProductDetail />} />
-                {/* <Route path="/Electronics" element={<Electronics />} /> */}
               </Route>
               <Route path="/login" element={<Login />} />
             </Routes>

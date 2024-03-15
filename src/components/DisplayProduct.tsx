@@ -50,7 +50,7 @@ const DisplayProduct = () => {
 
   return (
     <div
-      className={` Proudct tile text-xs flex flex-wrap justify-center sm:justify-start pb-4 ${
+      className={` Proudct tile   text-xs flex flex-wrap justify-center sm:justify-start pb-4 ${
         nightTheme ? "night-theme" : ""
       }`}
     >

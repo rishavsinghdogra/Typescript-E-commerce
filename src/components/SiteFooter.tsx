@@ -1,6 +1,6 @@
 const SiteFooter = () => {
     return (
-        <footer className=" bg-gray-900 text-white py-12 h-svh">
+        <footer className=" bg-gray-900 text-white py-12 bottom-[-63px] w-screen">
             <div className="container mx-auto flex flex-col md:flex-row pl-8">
                 <div className="mb-8 md:mb-0 md:w-1/3">
                     <h2 className="text-2xl font-bold mb-4">Your Ecommerce Store</h2>
